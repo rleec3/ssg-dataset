@@ -117,16 +117,28 @@ st.header(f"Household Living Wage for {selected_area}, {selected_state}")
 st.table(comparison_df.style.format({'Living Wage': '${:,.0f}', 'Thriving Wage': '${:,.0f}'}))
 
 # Create the bar chart comparison
-bar_chart = alt.Chart(comparison_df).mark_bar().encode(
-    x=alt.X('Adult, Child Configuration:N', axis=alt.Axis(title='Adult, Child Configuration')),
-    y=alt.Y('value:Q', axis=alt.Axis(title='Wage (000s)', format='$')),
-    color=alt.Color('Wage Type:N', scale=alt.Scale(range=['#3fb5a3', '#2a676b'])),
-    column='Wage Type:N'
-).transform_fold(
-    fold=['Living Wage', 'Thriving Wage'],
-    as_=['Wage Type', 'value']
+long_df = comparison_df.melt('Adult, Child Configuration', var_name='Wage Type', value_name='Wage')
+
+# Define color scheme
+colors = ['#2078a1', '#144961']  # Light teal and dark teal colors
+
+# Create the grouped bar chart
+grouped_bar_chart = alt.Chart(long_df).mark_bar().encode(
+    x=alt.X('Wage Type:N', axis=alt.Axis(title='')),
+    y=alt.Y('Wage:Q', axis=alt.Axis(title='Wage (1,000s)', format='$'), scale=alt.Scale(zero=True)),
+    color=alt.Color('Wage Type:N', scale=alt.Scale(domain=['Living Wage', 'Thriving Wage'], range=colors)),
+    tooltip=[alt.Tooltip('Wage Type:N', title='Wage Type'), alt.Tooltip('Wage:Q', title='Wage', format='$')],
+    order=alt.Order(
+        # Sort to ensure that the bars are ordered correctly within each group
+        'Wage Type:N',
+        sort='ascending'
+    )
 ).properties(
-    width=alt.Step(30)  # Adjusts the width of each bar
+    width=alt.Step(30)  # Controls the width of the bars
+).facet(
+    column=alt.Column('Adult, Child Configuration:N', header=alt.Header(title=None))
 )
 
-st.altair_chart(bar_chart, use_container_width=True)
+# Display the chart
+st.header(f"Household Living Wage for {selected_area}, {selected_state}")
+st.altair_chart(grouped_bar_chart, use_container_width=True)
