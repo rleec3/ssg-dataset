@@ -1,4 +1,6 @@
-
+'''
+title: Home
+'''
 import streamlit as st
 import streamlit_shadcn_ui as ui
 import pandas as pd
@@ -10,6 +12,7 @@ from streamlit_shadcn_ui import slider, input, textarea, radio_group, switch
 #     st.markdown(f.read())
 
 # ui.date_picker()
+st.set_page_config(page_title="Home", page_icon="🔥", layout="wide")
 
 st.header("C3 Tool Libray")
 ui.badges(badge_list=[ ("Under Construction", "destructive")], class_name="flex gap-2", key="main_badges1")
@@ -23,3 +26,4 @@ with ui.element("div", className="flex gap-2", key="buttons_group1"):
 st.subheader("Notes")
 
 st.write("4.18.2024: Demo of 990 Search Tool")
+st.write("4.23.2024: Added living wage dashboard")

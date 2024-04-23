@@ -2,6 +2,7 @@ import altair as alt
 import streamlit as st
 import openpyxl
 import pandas as pd
+import streamlit_shadcn_ui as ui
 
 # Assuming 'path_to_file.xlsx' is the correct path to your Excel file
 file_path = 'fbc_data_2024_V1.2.xlsx'
@@ -21,7 +22,7 @@ metro_data = load_data('Metro_Annual')  # Update with the correct sheet name for
 
 # Streamlit application layout
 st.title("Living Wage Dashboard") 
-
+ui.badges(badge_list=[ ("Under Construction", "destructive")], class_name="flex gap-2", key="main_badges1")
 
 # Filter selection sidebar
 with st.sidebar:
