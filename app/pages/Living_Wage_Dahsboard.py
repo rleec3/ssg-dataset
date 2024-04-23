@@ -4,7 +4,7 @@ import openpyxl
 import pandas as pd
 
 # Assuming 'path_to_file.xlsx' is the correct path to your Excel file
-file_path = '/workspaces/ssg-dataset/fbc_data_2024 V1.2.xlsm'
+file_path = 'fbc_data_2024 V1.2.xlsm'
 
 # Function to load data
 @st.cache_data
