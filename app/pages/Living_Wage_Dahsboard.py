@@ -125,9 +125,9 @@ colors = ['#2078a1', '#144961']  # Light teal and dark teal colors
 # Create the grouped bar chart
 grouped_bar_chart = alt.Chart(long_df).mark_bar().encode(
     x=alt.X('Wage Type:N', axis=alt.Axis(title='')),
-    y=alt.Y('Wage:Q', axis=alt.Axis(title='Wage (1,000s)', format='$'), scale=alt.Scale(zero=True)),
+    y=alt.Y('Wage:Q', axis=alt.Axis(title='Wage (1,000s)', format=',.0f'), scale=alt.Scale(zero=True)),
     color=alt.Color('Wage Type:N', scale=alt.Scale(domain=['Living Wage', 'Thriving Wage'], range=colors)),
-    tooltip=[alt.Tooltip('Wage Type:N', title='Wage Type'), alt.Tooltip('Wage:Q', title='Wage', format='$')],
+    tooltip=[alt.Tooltip('Wage Type:N', title='Wage Type'), alt.Tooltip('Wage:Q', title='Wage', format=',.0f')],
     order=alt.Order(
         # Sort to ensure that the bars are ordered correctly within each group
         'Wage Type:N',

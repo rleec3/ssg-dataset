@@ -6,7 +6,7 @@ list:
 
 # Launch Streamlit app
 app:
-  poetry run streamlit run app/Static_site_generators.py
+  poetry run streamlit run app/Home.py
 
 # Use black and isort
 lint:  
